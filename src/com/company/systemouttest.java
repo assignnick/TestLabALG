@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.lang.StringBuilder;
 
 public class systemouttest  {
+
     public static void main(String[] args) throws Exception {
 
         long starttime = System.currentTimeMillis();
