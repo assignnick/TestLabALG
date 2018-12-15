@@ -1,40 +1,42 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        //Scanner scanner = new Scanner("C:\\Users\\Vladimir\\IdeaProjects\\TestLabALG\\src\\text.txt");
         int n = scanner.nextInt();
-        long[] mas = new long[n];
-        mas[0] = scanner.nextInt();
-       // ArrayList<Long> listik = new ArrayList<>();
-        HashMap<Long, Long> mapka = new HashMap<>();
-                Long key;
-        if (mas[0] % 3 == 0)
-            mapka.put(mas[0] / 3, 1L);
-        for (int j = 1; j < n; j++) {
-            mas[j] = mas[j - 1] + scanner.nextInt();
-            if (mas[j] % 3 == 0) {
-                key=mas[j]/3;
-                if (mapka.containsKey(key))
-                    mapka.put(key, mapka.get(key) + 1);
-                else {
-                    mapka.put(key, 1L);
-
-                }
-            }
+        int[] mas = new int[n];
+        mas[0]=0;
+        int last;
+        int temp;
+        long answer = 0, maxanswer = 1;
+        last = scanner.nextInt();
+        int lastSign=-2;
+        for (int j = 1; j < mas.length; j++) {
+            temp = scanner.nextInt();
+            mas[j] = temp - last;
+            last = temp;
         }
-        System.out.println(mapka.toString());
+        for (int j = 0; j < mas.length; j++) {
+            if (lastSign==mas[j]) {
+                if(answer>maxanswer)
+                    maxanswer=answer;
+                answer = 0;
+            }
+            answer++;
 
-        if (mapka.size()%3==0)
-            System.out.println(mapka.size() - 2);
-        else
-            System.out.println(0);
+            if(mas[j]!=0)
+                lastSign=mas[j];
+        }
+
+
+        if(answer>maxanswer)
+            maxanswer=answer;
+        System.out.println(Arrays.toString(mas));
+        System.out.println(maxanswer+1);
     }
 }
 //        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
