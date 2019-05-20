@@ -7,12 +7,17 @@ import java.util.HashSet;
 public class BerOSFileSuggestion {
     public static void main(String[] args) throws IOException {
 
+
+
+
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 //        InputStreamReader input = new InputStreamReader(System.in);
 //        BufferedReader buffer = new BufferedReader(input);
         FileInputStream fstream = new FileInputStream("C:\\Users\\Vladimir\\IdeaProjects\\TestLabALG\\src\\com\\company\\text.txt");
         BufferedReader buffer = new BufferedReader(new InputStreamReader(fstream));
         int n = Integer.parseInt(buffer.readLine());
+
+
 
         HashMap<Long, Integer> mp = new HashMap<>();
         HashSet<Long> minimp=new HashSet<>();
