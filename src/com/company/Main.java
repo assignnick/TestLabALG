@@ -6,8 +6,11 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        //gjgjgjgjghjgjghjgjgjghjgjgjgjgjgjghjgjghjhjghjgghjghjghjghjghjgjghjgjghjghjghjgjgjghjgjghjgjghjghjghgjgj
+
+
         Scanner scanner = new Scanner(new FileInputStream("input.txt"));
+        Scanner scanner2 = new Scanner(new FileInputStream("input.txt"));
+        Scanner scanner3 = new Scanner(new FileInputStream("input.txt"));
         char c;
         int zero = 0, one = 0, two = 0;
 
