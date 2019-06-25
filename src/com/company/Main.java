@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
-        // bi = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\Users\\assig\\IdeaProjects\\AnotherTestAlgLab\\src\\com\\company\\gryadka.txt")));
+        bi = new BufferedReader(new InputStreamReader(new FileInputStream("src\\com\\company\\gryadka.txt")));
         String str = bi.readLine();
         StringTokenizer strtk = new StringTokenizer(str, " ");
         int n = (Integer.parseInt(strtk.nextToken()));
@@ -25,12 +25,16 @@ public class Main {
 //        for (int i = 0; i < n; i++)
 //            opyat[i] = new ArrayList<>();
         str = bi.readLine();
+        strtk = new StringTokenizer(str, " ");
         while (strtk.hasMoreTokens()) {
             a = (Integer.parseInt(strtk.nextToken()));
-            notes.add(a);
+            notes.add(a - 1);
         }
         graph = new int[n][n];
         answer = new int[n];
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = -1;
+        }
         for (int i = 0; i < n; i++) {
             str = bi.readLine();
             strtk = new StringTokenizer(str, " ");
@@ -39,11 +43,13 @@ public class Main {
                 graph[i][j] = a;
             }
         }
-
+        int p = 0;
+        for (int i : notes) {
+            dfs(i, p);
+            System.out.println(Arrays.toString(answer));
+        }
         System.out.println(Arrays.deepToString(graph));
-//        for (int k = 0; k < answer.length; k++) {
-//            answer[k] = -1;
-//        }
+
 //        for (int i = 0; i < opyat.length; i++) {
 //            ArrayList li = opyat[i];
 //            if (li.size() > 2)
@@ -72,32 +78,41 @@ public class Main {
 //        }
     }
 
-    private static void dfs(int station, int start, int pr, int fl) {
-        cities[station][1] = 1;
-        cities[station][0] = fl;
-        fl++;
-        for (int i = 0; i < opyat[station].size(); i++) {
-            int il = opyat[station].get(i);
-            for (int j = 0; j < graph[il].length; ++j) {
-                if ((graph[il][j] == station) && (graph[il][1 - j] != pr)) {
-                    int ik = graph[il][1 - j];
-                    if (cities[ik][1] == -1) {
-                        dfs(ik, start, station, fl);
-                    } else if (graph[il][1 - j] == start) {
-                        node = true;
-                        if (!сfound) {
-                            for (int jl = 0; jl < cities.length; jl++) {
-                                int[] ig = cities[jl];
-                                if (ig[1] == 1)
-                                    answer[jl] = 0;
-                            }
-                            сfound = true;
-                        }
-                    }
-                }
+    private static void dfs(int city, int price) {
+        //answer[city]+=price;
+        for (int i = 0; i < graph.length; i++) {
+            if (answer[i] == -1)
+                answer[i] = graph[city][i] + price;
+            else {
+                answer[i] = Math.min(graph[city][i] + price,answer[i]);
+                dfs(i, answer[i]);
             }
         }
-        cities[station][1] = 2;
+//        cities[station][1] = 1;
+//        cities[station][0] = fl;
+//        fl++;
+//        for (int i = 0; i < opyat[station].size(); i++) {
+//            int il = opyat[station].get(i);
+//            for (int j = 0; j < graph[il].length; ++j) {
+//                if ((graph[il][j] == station) && (graph[il][1 - j] != pr)) {
+//                    int ik = graph[il][1 - j];
+//                    if (cities[ik][1] == -1) {
+//                        dfs(ik, start, station, fl);
+//                    } else if (graph[il][1 - j] == start) {
+//                        node = true;
+//                        if (!сfound) {
+//                            for (int jl = 0; jl < cities.length; jl++) {
+//                                int[] ig = cities[jl];
+//                                if (ig[1] == 1)
+//                                    answer[jl] = 0;
+//                            }
+//                            сfound = true;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        cities[station][1] = 2;
     }
 }
 
