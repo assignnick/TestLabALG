@@ -2,7 +2,7 @@
  * https://codeforces.com/contest/131/problem/D
  * D. Метро
  */
-package com.company.sixLaba;
+package com.company.sixsevenLabs;
 import java.io.*;
 import java.util.*;
 

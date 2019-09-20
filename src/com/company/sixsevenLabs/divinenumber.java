@@ -1,4 +1,4 @@
-package com.company.sixLaba;
+package com.company.sixsevenLabs;
 
 import java.math.BigInteger;
 import java.util.Scanner;
