@@ -4,116 +4,82 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    private static ArrayList<Integer> notes = new ArrayList<>();
-    private static ArrayList<Integer>[] opyat;
-    private static int[][] graph;
-    private static int[][] cities;
-    private static boolean node = false;
-    private static boolean сfound = false;
-    private static int[] answer;
-
     public static void main(String[] args) throws IOException {
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
         bi = new BufferedReader(new InputStreamReader(new FileInputStream("src\\com\\company\\gryadka.txt")));
         String str = bi.readLine();
         StringTokenizer strtk = new StringTokenizer(str, " ");
         int n = (Integer.parseInt(strtk.nextToken()));
-        int k = (Integer.parseInt(strtk.nextToken()));
+        int m = (Integer.parseInt(strtk.nextToken()));
+        for (int i = 0; i < m; i++)
+            list.add(new ArrayList<>());
         int a;
-        //answer = new int[n];
-        //opyat = new ArrayList[n];
-//        for (int i = 0; i < n; i++)
-//            opyat[i] = new ArrayList<>();
-        str = bi.readLine();
-        strtk = new StringTokenizer(str, " ");
-        while (strtk.hasMoreTokens()) {
-            a = (Integer.parseInt(strtk.nextToken()));
-            notes.add(a - 1);
-        }
-        graph = new int[n][n];
-        answer = new int[n];
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = -1;
-        }
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < m; i++) {
             str = bi.readLine();
             strtk = new StringTokenizer(str, " ");
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < 3; j++) {
                 a = (Integer.parseInt(strtk.nextToken()));
-                graph[i][j] = a;
+                list.get(i).add(a);
             }
         }
-        int p = 0;
-        for (int i : notes) {
-            dfs(i, p);
-            System.out.println(Arrays.toString(answer));
-        }
-        System.out.println(Arrays.deepToString(graph));
+        System.out.println(list.toString());
 
-//        for (int i = 0; i < opyat.length; i++) {
-//            ArrayList li = opyat[i];
-//            if (li.size() > 2)
-//                notes.add(i);
-//        }
-//        cities = new int[n][2];
-//        if (notes.isEmpty())
-//            for (int i = 0; i < n; i++)
-//                System.out.print(0 + " ");
-//        else {
-//            for (int i : notes) {
-//                for (int k = 0; k < cities.length; k++) {
-//                    cities[k][0] = -1;
-//                    cities[k][1] = -1;
-//                }
-//                node = false;
-//                mydfs(i, i, -1, 0);
-//                if (node)
-//                    for (int j = 0; j < answer.length; j++) {
-//                        if ((cities[j][0] != -1 && cities[j][0] < answer[j]) || answer[j] == -1)
-//                            answer[j] = cities[j][0];
-//                    }
-//            }
-//            for (int i = 0; i < answer.length; i++)
-//                System.out.print(answer[i] + " ");
-//        }
+        Collections.sort(list, new Comparator<ArrayList<Integer>>() {
+            @Override
+            public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
+                return o1.get(2).compareTo(o2.get(2));
+            }
+        });
+        System.out.println(list.toString());
+
+        ArrayList<Integer> nes = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> list2 = new ArrayList<>();
+        ArrayList<Integer> t = new ArrayList<>();
+        int f = list.get(0).get(2);
+        int lastf = 0;
+        while (nes.size() < n || list2.size() < n - 1) {
+            for (ArrayList<Integer> integers : list) {
+                if (f < integers.get(2)) {
+                    lastf = f;
+                    f = integers.get(2);
+                    break;
+                }
+                if (!nes.contains(integers.get(0)))
+                    nes.add(integers.get(0));
+                if (!nes.contains(integers.get(1)))
+                    nes.add(integers.get(1));
+                t = new ArrayList<>();
+                t.add(integers.get(0));
+                t.add(integers.get(1));
+                list2.add(t);
+            }
+        }
+
+        System.out.println(lastf);
+        System.out.println(list2.size());
+        for (ArrayList<Integer> integers : list2) {
+            System.out.println(integers.get(0) + " " + integers.get(1));
+        }
     }
-
-    private static void dfs(int city, int price) {
-        //answer[city]+=price;
-        for (int i = 0; i < graph.length; i++) {
-            if (answer[i] == -1)
-                answer[i] = graph[city][i] + price;
-            else {
-                answer[i] = Math.min(graph[city][i] + price,answer[i]);
-                dfs(i, answer[i]);
-            }
-        }
-//        cities[station][1] = 1;
-//        cities[station][0] = fl;
-//        fl++;
-//        for (int i = 0; i < opyat[station].size(); i++) {
-//            int il = opyat[station].get(i);
-//            for (int j = 0; j < graph[il].length; ++j) {
-//                if ((graph[il][j] == station) && (graph[il][1 - j] != pr)) {
-//                    int ik = graph[il][1 - j];
-//                    if (cities[ik][1] == -1) {
-//                        dfs(ik, start, station, fl);
-//                    } else if (graph[il][1 - j] == start) {
-//                        node = true;
-//                        if (!сfound) {
-//                            for (int jl = 0; jl < cities.length; jl++) {
-//                                int[] ig = cities[jl];
-//                                if (ig[1] == 1)
-//                                    answer[jl] = 0;
-//                            }
-//                            сfound = true;
-//                        }
-//                    }
+//    private static void dfs(double expect, int s, int start, int pr) {
+//        boolean end = true;
+//        used[start] = 1;
+//        double div = list.get(start).size() - 1;
+//        if (start == 0)
+//            div++;
+//        for (int i = 0; i < list.get(start).size(); ++i) {
+//            if (used[start] != 2) {
+//                if ((list.get(start).get(i) != pr)) {
+//                    dfs(expect / div, s + 1, list.get(start).get(i), start);
+//                    end = false;
 //                }
 //            }
 //        }
-//        cities[station][1] = 2;
-    }
+//        used[start] = 2;
+//        if (end) {
+//            //System.out.println(s + " s " + (start + 1) + " start+1 " + expect);
+//            sum += expect * s;
+//        }
+//    }
 }
-
-
