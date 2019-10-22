@@ -71,6 +71,7 @@ public class Metro {
         stations[station][0] = fl;
         fl++;
         for (int i = 0; i < opyat[station].size(); i++) {
+
             int il = opyat[station].get(i);
             for (int j = 0; j < graph[il].length; ++j) {
                 if ((graph[il][j] == station) && (graph[il][1 - j] != pr)) {
