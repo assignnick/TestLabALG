@@ -1,9 +1,17 @@
-package com.company;
+package com.company.eightlab;
 
-import java.io.*;
-import java.util.*;
+/*
+http://acm.timus.ru/problem.aspx?space=1&num=1056&locale=en
+        1056. Computer Net
+        */
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
-public class Main {
+public class ComputerNet {
     private static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
     private static int[] used;
     private static int[] way;

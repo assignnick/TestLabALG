@@ -19,14 +19,14 @@ public class inputoutput {
 
 
         FileWriter writer = new FileWriter("E:\\Users\\assig\\IdeaProjects\\AnotherTestAlgLab\\src\\com\\company\\gryadka3.txt", false);
-        String text = "1000 15000";
+        String text = "98";
         writer.write(text);
         // запись по символам
         writer.append('\n');
-        for(int i=1;i<17;i++)
-            for(int j=i+1;j<1001;j++){
+        for(int i=1;i<2;i++)
+            for(int j=i+1;j<10001;j++){
                // writer.append(String.valueOf(i)).append(" ").append(String.valueOf(j)).append(" ").append(String.valueOf(new Random().nextInt(1000000)+1));
-                writer.append(String.valueOf(i)).append(" ").append(String.valueOf(j)).append(" ").append(String.valueOf(1000000));
+                writer.append(String.valueOf(i)).append(" ").append(String.valueOf(j));
                 writer.append('\n');
             }
 
