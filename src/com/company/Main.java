@@ -1,88 +1,70 @@
 package com.company;
-
 import java.io.*;
 import java.util.*;
 
 public class Main {
-    private static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-    private static int[] used;
+    private static ArrayList<Integer> list = new ArrayList<>();
+    private static ArrayList<ArrayList<Integer>> mas = new ArrayList<>();
     private static int[] way;
-    private static ArrayList<Integer> centers = new ArrayList<>();
+    private static int[] used;
+    private static int ot;
 
     public static void main(String[] args) throws IOException {
         BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
-       // bi = new BufferedReader(new InputStreamReader(new FileInputStream("src\\com\\company\\gryadka.txt")));
+        //bi = new BufferedReader(new InputStreamReader(new FileInputStream("src\\com\\company\\gryadka.txt")));
         String str = bi.readLine();
         StringTokenizer strtk = new StringTokenizer(str, " ");
         int n = (Integer.parseInt(strtk.nextToken()));
+        int m = (Integer.parseInt(strtk.nextToken()));
+        way = new int[n];
         used = new int[n];
-        for (int i = 0; i < n; i++)
-            list.add(new ArrayList<>());
-        int a;
-        for (int i = 0; i < n - 1; i++) {
+        //mas = new int[n][n];
+        int a, k,nx=0;
+        for (int i = 0; i < m; i++) {
             str = bi.readLine();
             strtk = new StringTokenizer(str, " ");
             a = (Integer.parseInt(strtk.nextToken()));
-            list.get(i + 1).add(a - 1);
-            list.get(a - 1).add(i + 1);
+            k = a;
+            list = new ArrayList<>();
+            for (int j = 0; j < k; j++) {
+                a = (Integer.parseInt(strtk.nextToken()));
+                list.add(a);
+            }
+            for (int l = 0; l < list.size(); l++)
+                for (int h = l + 1; h < list.size(); h++) {
+                    nx++;
+                    mas.add(new ArrayList<>());
+                    mas.get(nx).add(l);
+                    mas.get(nx).add(h);
+
+                }
         }
+        //System.out.println(Arrays.deepToString(mas));
 
-
-        dfs(0, 0);
-        int max = 0;
-        int maxi = 0;
-        for (int i = 0; i < used.length; i++)
-            if (max < used[i]) {
-                max = used[i];
-                maxi = i;
+        for (int i = 0; i < way.length; i++)
+            if (way[i] < 1)
+            {
+                list = new ArrayList<>();
+                ot = 0;
+                dfs(i, list);
+                for (int j : list)
+                    way[j] = ot;
             }
 
-
-        used = new int[n];
-        way = new int[n];
-        dfs2(maxi, 0);
-        int max2 = 0;
-        int maxi2 = 0;
-        for (int i = 0; i < used.length; i++)
-            if (max2 < used[i]) {
-                max2 = used[i];
-                maxi2 = i;
-            }
-
-        int b=maxi2;
-        while (b!=maxi){
-            centers.add(b);
-            b=way[b];
+        for (int i = 0; i < way.length; i++) {
+            System.out.print(way[i] + " ");
         }
-        centers.add(maxi);
-
-
-        ArrayList<Integer> ans = new ArrayList<>();
-        ans.add(centers.get(centers.size()/2)+1);
-        if(centers.size()%2==0)
-        ans.add(centers.get(centers.size()/2-1)+1);
-        Collections.sort(ans);
-        for (int i: ans)
-        System.out.print(i+" ");
-    }
-
-    private static void dfs(int n, int c) {
-        c++;
-        used[n] += c;
-        for (int nv : list.get(n))
-            if (used[nv] == 0)
-                dfs(nv, c);
+        System.out.println();
 
     }
 
-    private static void dfs2(int n, int c) {
-        c++;
-        used[n] += c;
-        for (int nv : list.get(n))
-            if (used[nv] == 0) {
-                way[nv]=n;
-                dfs2(nv, c);
+    private static void dfs(int n, ArrayList<Integer> i) {
+        ot++;
+        i.add(n);
+        used[n] = 1;
+        for (int nv = 0; nv < mas.size(); nv++)
+            if (mas.get(n).contains(nv) && used[nv] == 0) {
+                dfs(nv, i);
             }
-
     }
 }
