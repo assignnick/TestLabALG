@@ -8,7 +8,7 @@ public class inputoutput {
         BufferedReader bi = new BufferedReader(new InputStreamReader(System.in));
         Scanner sc = new Scanner(System.in);
         //   bi = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\Users\\assig\\IdeaProjects\\AnotherTestAlgLab\\src\\com\\company\\gryadka.txt")));
-         sc = new Scanner(new FileInputStream("E:\\Users\\assig\\IdeaProjects\\AnotherTestAlgLab\\src\\com\\company\\gryadka2.txt"));
+       //  sc = new Scanner(new FileInputStream("E:\\Users\\assig\\IdeaProjects\\AnotherTestAlgLab\\src\\com\\company\\gryadka2.txt"));
         Map<Long, Long> first = new TreeMap<>();
         Map<Long, Long> last = new TreeMap<>();
 
@@ -18,21 +18,28 @@ public class inputoutput {
       //  StringTokenizer strtk = new StringTokenizer(str, " ");
 
 
-        FileWriter writer = new FileWriter("E:\\Users\\assig\\IdeaProjects\\AnotherTestAlgLab\\src\\com\\company\\gryadka3.txt", false);
-        String text = "98";
+        FileWriter writer = new FileWriter("E:\\Users\\assig\\IdeaProjects\\AnotherTestAlgLab\\src\\com\\company\\gryadka2.txt", false);
+        String text = "50000 50000";
         writer.write(text);
         // запись по символам
         writer.append('\n');
-        for(int i=1;i<2;i++)
-            for(int j=i+1;j<10001;j++){
-               // writer.append(String.valueOf(i)).append(" ").append(String.valueOf(j)).append(" ").append(String.valueOf(new Random().nextInt(1000000)+1));
-                writer.append(String.valueOf(i)).append(" ").append(String.valueOf(j));
-                writer.append('\n');
+        for(int i=0;i<50000;i++) {
+            System.out.println(i);
+            int a =0,b=0;
+            b=new Random().nextInt(50000)+1;
+            writer.append(String.valueOf(b));
+            writer.append(" ");
+            for (int j=0;j<b;j++){
+                a=new Random().nextInt(50000-a-b+j)+a+1;
+                writer.append(String.valueOf(a));
+                writer.append(" ");
             }
+                writer.append('\n');
+                writer.flush();
+        }
 
 
 
-        writer.flush();
 
 /*        while (strtk.hasMoreTokens()) {
             a = (Integer.parseInt(strtk.nextToken()));
